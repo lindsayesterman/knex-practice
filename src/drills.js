@@ -36,7 +36,6 @@ function paginateProducts(page) {
 
 paginateProducts(2)
 
-
 function productsAddedDaysAgo(daysAgo) {
   knexInstance
     .select('id', 'name', 'price', 'date_added', 'checked', 'category')
