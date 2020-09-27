@@ -1,17 +1,35 @@
 const ArticlesService = {
-    getAllArticles(knex) {
-        return knex.select('*').from('blogful_articles')
+    getAllArticles(db) {
+      return db('blogful_articles')
+        .select('*');
     },
-    insertArticle(knex, newArticle) {
-        return knex
-        .insert(newArticle)
-        .into('blogful_articles')
+  
+    insertArticle(db, data) {
+      return db('blogful_articles')
+        .insert(data)
         .returning('*')
-        .then(rows => {
-            return rows[0]
-        })
-    },    
-}
-
-module.exports = ArticlesService
+        .then(rows => rows[0]);
+    },
+  
+    getById(db, id) {
+      return db('blogful_articles')
+        .select('*')
+        .where({ id })
+        .first();
+    },
+  
+    deleteArticle(db, id) {
+      return db('blogful_articles')
+        .where({ id })
+        .delete();
+    },
+  
+    updateArticle(db, id, data) {
+      return db('blogful_articles')
+        .where({ id })
+        .update(data);
+    }
+  };
+  
+  module.exports = ArticlesService;
 
